@@ -3,7 +3,7 @@
 
 __author__="Qinxue"
 
-import NMF_01 as NMF
+import NMF as NMF
 import numpy as np
 
 PATH='E:\\data\\ml-1m\\ml-1m\\ratings.dat'
