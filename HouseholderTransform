@@ -1,0 +1,31 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+__author__="Qinxue"
+
+import numpy as np
+
+def householderU(x):
+	v=x.copy()
+	signx0=np.sign(x[0])
+	# 
+	if np.abs(x[0])<0.0000001:
+		signx0=1
+	v[0]=x[0]+signx0*np.sqrt(np.dot(x,x))
+	return (1/np.sqrt(np.dot(v,v)))*v
+
+def householdertransform(A):
+	listu=[]
+	mindim=np.min(A.shape)
+	print 'print mindim...'
+	print mindim
+	for i in range(mindim):
+		print 'print A...'
+		print A
+		u=householderU(A[i:,i])
+		listu.append(u)
+		print 'print u...'
+		print u
+		for j in range(i,A.shape[1]):
+			A[i:,j]=A[i:,j]-2*np.dot(u.T,A[i:,j])*u
+	return listu
