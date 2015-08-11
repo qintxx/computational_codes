@@ -1,0 +1,28 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+__author__="Qinxue"
+
+import numpy as np
+
+def inversetriangle(A):
+	inverse=np.eye(len(A))
+	# this scans columns
+	for i in range(len(A)):
+		# print 'pint i...'
+		# print i
+		# this scans rows
+		for j in range(i+1)[::-1]:
+			# print 'print j...'
+			# print j
+			if i==j:
+				inverse[j,i]=1.0/A[j,i]
+			else:
+				# print 'print A...'
+				# print A
+				# print 'print inverse[(j+1):,i]...'
+				# print inverse[(j+1):,i]
+				# print 'print A[i,(j+1):]...'
+				# print A[i,(j+1):]
+				inverse[j,i]=-1.0*np.dot(inverse[(j+1):,i],A[j,(j+1):])/A[j,j]
+	return inverse
