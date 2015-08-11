@@ -1,0 +1,35 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+__author__="Qinxue"
+
+import NMF_01 as NMF
+import numpy as np
+
+PATH='E:\\data\\ml-1m\\ml-1m\\ratings.dat'
+
+with open(PATH) as fp:
+	lines=fp.readlines()
+
+np.random.shuffle(lines)
+
+# training set
+lines=lines[:100000]
+
+testsets=lines[-50:]
+
+ratings=[]
+
+for line in lines:
+	rating=line.strip().split('::')
+	# userid,movieid,rating
+	ratings.append((int(rating[0]),int(rating[1]),int(rating[2])))
+
+nmf=NMF.NMF(M=6041,N=3953,ratings=ratings)
+
+nmf.iterate()
+
+print 'result:...'
+
+for testset in testsets:
+	print nmf.predict(testset[0],testset[1]),testset[2]
