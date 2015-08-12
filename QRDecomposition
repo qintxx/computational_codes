@@ -3,7 +3,7 @@
 
 __author__="Qinxue"
 
-import Householder as hh
+import HouseholderTransform as hh
 import numpy as np
 
 def QRDecomposition(A):
