@@ -1,0 +1,36 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+__author__="Qinxue"
+
+import Householder as hh
+import numpy as np
+
+def QRDecomposition(A):
+	listu=hh.householdertransform(A)
+	return Q(listu,len(A)), A
+
+def Q(listu,dim):
+	Q=np.eye(dim)
+	listh=[]
+	for u in listu:
+		print 'print u...'
+		print u
+		H=np.eye(dim)
+		H[(dim-u.size):,(dim-u.size):]=H[(dim-u.size):,(dim-u.size):]-2*dot(u)
+		print 'print H...'
+		print H
+		listh.append(H)
+		Q=np.dot(Q,H.T)
+	return Q,listh,listu
+
+# define the dot operation myself,
+# i find numpy dot always return a 
+# scalar, but i want u(dot)u.T is 
+# a matrix
+def dot(u):
+	tmp=np.zeros(len(u)*len(u)).reshape(len(u),len(u))
+	for i in range(len(u)):
+		for j in range(len(u)):
+			tmp[i,j]=u[i]*u[j]
+	return tmp
